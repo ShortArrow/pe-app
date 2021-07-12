@@ -1,10 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-// import clsx from 'clsx';
 import './App.css';
-import architecture_draw from './svg/architecture_draw.svg'
 import PermDataSettingIcon from '@material-ui/icons/PermDataSetting';
+import DrawApp from './draw';
 
 // firebase functions
 import firebase from 'firebase/app';
@@ -12,7 +11,7 @@ import { firebaseStore } from './firebase/index'
 import 'firebase/firestore';
 import 'firebase/auth';
 import { StyledFirebaseAuth } from 'react-firebaseui';
-import { AppBar, Button, CircularProgress, FormControlLabel, FormGroup, IconButton, Link, makeStyles, Paper, Card, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography, withStyles } from '@material-ui/core';
+import { AppBar, Button, CircularProgress, FormControlLabel, FormGroup, IconButton, Link, makeStyles, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography, withStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -21,6 +20,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PersonIcon from '@material-ui/icons/Person';
 import SecurityIcon from '@material-ui/icons/Security';
+import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
@@ -197,9 +197,7 @@ const Sampledata = React.memo(() => {
                     )}
                 </Route>
                 <Route path="/draw" exact>
-                    <Card variant="outlined" elevation={3}>
-                        <img src={architecture_draw} alt="" />
-                    </Card>
+                    <DrawApp />
                 </Route>
             </main>
         </div >
@@ -285,6 +283,10 @@ function SwipeableTemporaryDrawer(switchState: {
             >
                 <List>
                     <ListItem>
+                        <ListItemText primary={<p>このページは毎日自動更新されます。その時、「<Link href="https://www.e-shisetsu.e-aichi.jp/sp/">ここ</Link>」の情報を基にしています。</p>} />
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
                         <ListItemText primary={"Last Update"} />
                         <ListItemText primary={String(lastupdate).slice(0, 4) + "/" + String(lastupdate).slice(4, 6) + "/" + String(lastupdate).slice(6, 8)} />
                     </ListItem>
@@ -294,11 +296,7 @@ function SwipeableTemporaryDrawer(switchState: {
                         <ListItemText primary={'24:00~25:00'} />
                     </ListItem>
                     <Divider />
-                    <ListItem>
-                        <ListItemText primary={<p><span>このページは毎日自動更新されます。その時、</span><Link href="https://www.e-shisetsu.e-aichi.jp/sp/">ここ</Link>の情報を基にしています。</p>} />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button onClick={(event) => { window.location.href = './draw' }}>
+                    <ListItem button onClick={(event) => { window.location.href = '/draw' }}>
                         <ListItemIcon><PermDataSettingIcon /></ListItemIcon>
                         <ListItemText primary={"How does this work?"} />
                     </ListItem>
@@ -308,14 +306,23 @@ function SwipeableTemporaryDrawer(switchState: {
                         <ListItemText primary={"Admin's Blog"} />
                     </ListItem>
                     <Divider />
-                    <ListItem><ListItemText primary={"Control Panel"} /></ListItem>
-                    <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_h09} name="checked_h09" />} label="9~12" /></ListItem>
-                    <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_h12} name="checked_h12" />} label="12~15" /></ListItem>
-                    <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_h15} name="checked_h15" />} label="15~18" /></ListItem>
-                    <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_h18} name="checked_h18" />} label="18~21" /></ListItem>
-                    <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_A} name="checked_A" color="primary" />} label="A" /></ListItem>
-                    <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_B} name="checked_B" color="primary" />} label="B" /></ListItem>
+                    <Route path="/draw" exact>
+                    <ListItem button onClick={(event) => { window.location.href = '/' }}>
+                        <ListItemIcon><HomeIcon /></ListItemIcon>
+                        <ListItemText primary={"Home"} />
+                    </ListItem>
                     <Divider />
+                    </Route>
+                    <Route path="/" exact>
+                        <ListItem><ListItemText primary={"Control Panel"} /></ListItem>
+                        <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_h09} name="checked_h09" />} label="9~12" /></ListItem>
+                        <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_h12} name="checked_h12" />} label="12~15" /></ListItem>
+                        <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_h15} name="checked_h15" />} label="15~18" /></ListItem>
+                        <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_h18} name="checked_h18" />} label="18~21" /></ListItem>
+                        <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_A} name="checked_A" color="primary" />} label="A" /></ListItem>
+                        <ListItem button onChange={handleChange}><StyledFormControlLabel control={<Switch checked={switchState.checked_B} name="checked_B" color="primary" />} label="B" /></ListItem>
+                        <Divider />
+                    </Route>
                     <ListItem><ListItemText primary={"Admin Only"} /></ListItem>
                     <ListItem alignItems='center'>
 
