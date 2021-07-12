@@ -274,20 +274,24 @@ function SwipeableTemporaryDrawer(switchState: {
                 role="presentation"
             >
                 <List>
-                    <ListItem><ListItemText primary={"Info"} /></ListItem>
                     <ListItem>
-                        <ListItemText primary={'このページの情報は毎日24:00~25:00の間に自動更新されます。'} />
-                    </ListItem>
-                    <Divider />
-                    <ListItem> <ListItemText primary={"Admin Profile"} /></ListItem>
-                    <ListItem button>
-                        <ListItemIcon><PersonIcon /></ListItemIcon>
-                        <ListItemText primary={<Link href="https://qiita.com/shortarrow">Blog</Link>} />
-                    </ListItem>
-                    <Divider />
-                    <ListItem><ListItemText primary={"Last Update"} /></ListItem>
-                    <ListItem>
+                        <ListItemText primary={"Last Update"} />
                         <ListItemText primary={String(lastupdate).slice(0, 4) + "/" + String(lastupdate).slice(4, 6) + "/" + String(lastupdate).slice(6, 8)} />
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                        <ListItemText primary={"Update Timing"} />
+                        <ListItemText primary={'24:00~25:00'} />
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                        <ListItemText primary={<p><span>このページは毎日自動更新されます。その時、</span><Link href="https://www.e-shisetsu.e-aichi.jp/sp/">ここ</Link>の情報を基にしています。</p>} />
+                    </ListItem>
+                    <Divider />
+
+                    <ListItem button onClick={(event) => { window.open("https://qiita.com/shortarrow") }}>
+                        <ListItemIcon><PersonIcon /></ListItemIcon>
+                        <ListItemText primary={"Admin's Blog"} />
                     </ListItem>
                     <Divider />
                     <ListItem><ListItemText primary={"Control Panel"} /></ListItem>
