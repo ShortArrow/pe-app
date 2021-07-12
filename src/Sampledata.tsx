@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 // import clsx from 'clsx';
 import './App.css';
 import architecture_draw from './svg/architecture_draw.svg'
+import PermDataSettingIcon from '@material-ui/icons/PermDataSetting';
 
 // firebase functions
 import firebase from 'firebase/app';
@@ -297,7 +298,11 @@ function SwipeableTemporaryDrawer(switchState: {
                         <ListItemText primary={<p><span>このページは毎日自動更新されます。その時、</span><Link href="https://www.e-shisetsu.e-aichi.jp/sp/">ここ</Link>の情報を基にしています。</p>} />
                     </ListItem>
                     <Divider />
-
+                    <ListItem button onClick={(event) => { window.location.href = './draw' }}>
+                        <ListItemIcon><PermDataSettingIcon /></ListItemIcon>
+                        <ListItemText primary={"How does this work?"} />
+                    </ListItem>
+                    <Divider />
                     <ListItem button onClick={(event) => { window.open("https://qiita.com/shortarrow") }}>
                         <ListItemIcon><PersonIcon /></ListItemIcon>
                         <ListItemText primary={"Admin's Blog"} />
