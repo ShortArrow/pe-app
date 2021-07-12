@@ -1,7 +1,9 @@
 import React from 'react';
-// import clsx from 'clsx';
+import { Route } from 'react-router-dom'
 import { useState, useEffect } from 'react';
+// import clsx from 'clsx';
 import './App.css';
+import architecture_draw from './svg/architecture_draw.svg'
 
 // firebase functions
 import firebase from 'firebase/app';
@@ -9,7 +11,7 @@ import { firebaseStore } from './firebase/index'
 import 'firebase/firestore';
 import 'firebase/auth';
 import { StyledFirebaseAuth } from 'react-firebaseui';
-import { AppBar, Button, CircularProgress, FormControlLabel, FormGroup, IconButton, Link, makeStyles, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography, withStyles } from '@material-ui/core';
+import { AppBar, Button, CircularProgress, FormControlLabel, FormGroup, IconButton, Link, makeStyles, Paper, Card, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography, withStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -137,60 +139,67 @@ const Sampledata = React.memo(() => {
                 </Toolbar>
             </AppBar>
             <main>
-                <FormGroup row className="controll_pannel">
-                    <FormControlLabel control={<Switch checked={state.checked_h09} onChange={handleChange} name="checked_h09" />} label="9~12" />
-                    <FormControlLabel control={<Switch checked={state.checked_h12} onChange={handleChange} name="checked_h12" />} label="12~15" />
-                    <FormControlLabel control={<Switch checked={state.checked_h15} onChange={handleChange} name="checked_h15" />} label="15~18" />
-                    <FormControlLabel control={<Switch checked={state.checked_h18} onChange={handleChange} name="checked_h18" />} label="18~21" />
-                    <FormControlLabel control={<Switch checked={state.checked_A} onChange={handleChange} name="checked_A" color="primary" />} label="A" />
-                    <FormControlLabel control={<Switch checked={state.checked_B} onChange={handleChange} name="checked_B" color="primary" />} label="B" />
-                </FormGroup>
-                {loading ? (
-                    <CircularProgress />
-                ) : (
-                    <TableContainer component={Paper}>
-                        <Table aria-label="customized table">
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell align="center">Date</StyledTableCell>
-                                    <StyledTableCell align="center">Time</StyledTableCell>
-                                    {state.checked_A ? <React.StrictMode>
-                                        <StyledTableCell align="center">A1</StyledTableCell>
-                                        <StyledTableCell align="center">A2</StyledTableCell>
-                                        <StyledTableCell align="center">A3</StyledTableCell>
-                                    </React.StrictMode> : null}
-                                    {state.checked_B ? <React.StrictMode>
-                                        <StyledTableCell align="center">B1</StyledTableCell>
-                                        <StyledTableCell align="center">B2</StyledTableCell>
-                                        <StyledTableCell align="center">B3</StyledTableCell>
-                                    </React.StrictMode> : null}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {Days.map((day, index) => {
-                                    return <React.StrictMode key={index}>
-                                        {state.checked_h09 ? <StyledTableRow>
-                                            {DayCell(day.id, "09h")}
-                                            {Areas(state.checked_A, state.checked_B, day.h09)}
-                                        </StyledTableRow> : null}
-                                        {state.checked_h12 ? <StyledTableRow>
-                                            {DayCell(day.id, "12h")}
-                                            {Areas(state.checked_A, state.checked_B, day.h12)}
-                                        </StyledTableRow> : null}
-                                        {state.checked_h15 ? <StyledTableRow>
-                                            {DayCell(day.id, "15h")}
-                                            {Areas(state.checked_A, state.checked_B, day.h15)}
-                                        </StyledTableRow> : null}
-                                        {state.checked_h18 ? <StyledTableRow>
-                                            {DayCell(day.id, "18h")}
-                                            {Areas(state.checked_A, state.checked_B, day.h18)}
-                                        </StyledTableRow> : null}
-                                    </React.StrictMode>
-                                })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                )}
+                <Route path="/" exact>
+                    <FormGroup row className="controll_pannel">
+                        <FormControlLabel control={<Switch checked={state.checked_h09} onChange={handleChange} name="checked_h09" />} label="9~12" />
+                        <FormControlLabel control={<Switch checked={state.checked_h12} onChange={handleChange} name="checked_h12" />} label="12~15" />
+                        <FormControlLabel control={<Switch checked={state.checked_h15} onChange={handleChange} name="checked_h15" />} label="15~18" />
+                        <FormControlLabel control={<Switch checked={state.checked_h18} onChange={handleChange} name="checked_h18" />} label="18~21" />
+                        <FormControlLabel control={<Switch checked={state.checked_A} onChange={handleChange} name="checked_A" color="primary" />} label="A" />
+                        <FormControlLabel control={<Switch checked={state.checked_B} onChange={handleChange} name="checked_B" color="primary" />} label="B" />
+                    </FormGroup>
+                    {loading ? (
+                        <CircularProgress />
+                    ) : (
+                        <TableContainer component={Paper}>
+                            <Table aria-label="customized table">
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell align="center">Date</StyledTableCell>
+                                        <StyledTableCell align="center">Time</StyledTableCell>
+                                        {state.checked_A ? <React.StrictMode>
+                                            <StyledTableCell align="center">A1</StyledTableCell>
+                                            <StyledTableCell align="center">A2</StyledTableCell>
+                                            <StyledTableCell align="center">A3</StyledTableCell>
+                                        </React.StrictMode> : null}
+                                        {state.checked_B ? <React.StrictMode>
+                                            <StyledTableCell align="center">B1</StyledTableCell>
+                                            <StyledTableCell align="center">B2</StyledTableCell>
+                                            <StyledTableCell align="center">B3</StyledTableCell>
+                                        </React.StrictMode> : null}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {Days.map((day, index) => {
+                                        return <React.StrictMode key={index}>
+                                            {state.checked_h09 ? <StyledTableRow>
+                                                {DayCell(day.id, "09h")}
+                                                {Areas(state.checked_A, state.checked_B, day.h09)}
+                                            </StyledTableRow> : null}
+                                            {state.checked_h12 ? <StyledTableRow>
+                                                {DayCell(day.id, "12h")}
+                                                {Areas(state.checked_A, state.checked_B, day.h12)}
+                                            </StyledTableRow> : null}
+                                            {state.checked_h15 ? <StyledTableRow>
+                                                {DayCell(day.id, "15h")}
+                                                {Areas(state.checked_A, state.checked_B, day.h15)}
+                                            </StyledTableRow> : null}
+                                            {state.checked_h18 ? <StyledTableRow>
+                                                {DayCell(day.id, "18h")}
+                                                {Areas(state.checked_A, state.checked_B, day.h18)}
+                                            </StyledTableRow> : null}
+                                        </React.StrictMode>
+                                    })}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    )}
+                </Route>
+                <Route path="/draw" exact>
+                    <Card variant="outlined" elevation={3}>
+                        <img src={architecture_draw} alt="" />
+                    </Card>
+                </Route>
             </main>
         </div >
     );
