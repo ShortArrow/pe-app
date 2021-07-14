@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/analytics'
 
 const env = process.env;
 
@@ -11,11 +12,13 @@ export const firebaseConfig = {
     storageBucket: env.REACT_APP_STORAGE_BUCKET,
     messagingSenderId: env.REACT_APP_MESSAGING_SENDER_ID,
     appId: env.REACT_APP_APP_ID,
+    measurementId: env.REACT_APP_MEASUREMENT_ID,
 };
-// measurementId: env.REACT_APP_MEASUREMENT_ID,
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+
 export const firebaseStore = firebaseApp.firestore();
+export const firebaseAnalytics = firebaseApp.analytics();
 
 export default firebase;
